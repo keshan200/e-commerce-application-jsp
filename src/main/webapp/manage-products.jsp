@@ -1,3 +1,6 @@
+<%@ page import="lk.ijse.ecommerceapplication_jsp.DTO.CategoryDTO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="lk.ijse.ecommerceapplication_jsp.DTO.ProductDTO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,43 +64,72 @@
         <button class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#addProductModal">Add New Product</button>
     </div>
 
+
+    <a href="load-list">reload</a>
+
     <!-- Product Table -->
     <div class="card">
         <div class="card-body">
+            <%
+                // Get the product list from the request
+                List<ProductDTO> datalist = (List<ProductDTO>) request.getAttribute("productList"); // Changed to match servlet
+                if (datalist != null && !datalist.isEmpty()) {
+            %>
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Image</th>
                     <th>Name</th>
                     <th>Description</th>
-                    <th>Price</th>
                     <th>Category</th>
-                    <th>Stock</th>
-                    <th>Image</th>
+                    <th>Material</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <%-- Example Product Rows (Replace this with dynamic data) --%>
+                <%
+                    for (ProductDTO productDTO : datalist) {
+                %>
                 <tr>
-                    <td>1</td>
-                    <td>Sandalwood Incense</td>
-                    <td>A soothing fragrance for relaxation.</td>
-                    <td>$5.99</td>
-                    <td>Incense</td>
-                    <td>50</td>
-                    <td><img src="images/sandalwood.jpg" alt="Product Image"></td>
+                    <td><img src="uploads/<%= productDTO.getItemImage() %>" width="20px" height="30px"></td>
+                    <td><%= productDTO.getItemName() %></td>
+                    <td><%= productDTO.getItemDescription() %></td>
+                    <td><%= productDTO.getCategoryID() %></td>
+                    <td><%= productDTO.getMaterial() %></td>
+                    <td><%= productDTO.getQuantity() %></td>
+                    <td><%= productDTO.getUnitPrice() %></td>
                     <td>
-                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProductModal"
+
+                                data-item-name="<%= productDTO.getItemName() %>"
+                                data-item-description="<%= productDTO.getItemDescription() %>"
+                                data-item-price="<%= productDTO.getUnitPrice() %>"
+                                data-item-category="<%= productDTO.getCategoryID() %>"
+                                data-item-quantity="<%= productDTO.getQuantity() %>"
+                                data-item-material="<%= productDTO.getMaterial() %>"
+                                data-item-image="<%= productDTO.getItemImage()%>">
+                            Edit
+                        </button>
                         <button class="btn btn-sm btn-danger">Delete</button>
                     </td>
                 </tr>
-                <%-- Add server-side code to dynamically render products here --%>
+                <% } %>
                 </tbody>
             </table>
+            <%
+            } else {
+            %>
+            <p>No products available.</p>
+            <%
+                }
+            %>
         </div>
     </div>
+
 </div>
+
 
 <!-- Add Product Modal -->
 <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
@@ -107,42 +139,69 @@
                 <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="add-product.jsp" method="POST">
+
+
+            <form action="product-save" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="productName" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="productName" name="name" required>
+                        <input type="text" class="form-control" id="productName" name="itemName" required>
                     </div>
                     <div class="mb-3">
                         <label for="productDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="productDescription" name="description" rows="3" required></textarea>
+                        <textarea class="form-control" id="productDescription" name="itemDescription" rows="3" required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="productPrice" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="productPrice" name="price" step="0.01" required>
+                        <input type="number" class="form-control" id="productPrice" name="unitPrice" step="0.01" required>
                     </div>
+
                     <div class="mb-3">
                         <label for="productCategory" class="form-label">Category</label>
-                        <select class="form-select" id="productCategory" name="category_id" required>
-                            <%-- Dynamically populate this dropdown with categories --%>
-                            <option value="1">Incense</option>
-                            <option value="2">Essential Oils</option>
+                        <select class="form-select" id="productCategory" name="categoryID" required>
+                            <%
+                                List<CategoryDTO> categories = (List<CategoryDTO>) request.getAttribute("categories");
+                                if (categories != null && !categories.isEmpty()) {
+                                    for (CategoryDTO category : categories) {
+                            %>
+                            <option value="<%= category.getId() %>"><%= category.getCategory() %></option>
+                            <%
+                                }
+                            } else {
+                            %>
+                            <option value="">No categories available</option>
+                            <%
+                                }
+                            %>
                         </select>
                     </div>
+
                     <div class="mb-3">
-                        <label for="productStock" class="form-label">Stock</label>
-                        <input type="number" class="form-control" id="productStock" name="stock" required>
+                        <label for="productStock" class="form-label">Quantity</label>
+                        <input type="number" class="form-control" id="productStock" name="quantity" required>
                     </div>
                     <div class="mb-3">
-                        <label for="productImage" class="form-label">Image URL</label>
-                        <input type="text" class="form-control" id="productImage" name="image_url">
+                        <label for="material" class="form-label">Material</label>
+                        <input type="number" class="form-control" id="material" name="material" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="productImage" class="form-label">Image</label>
+                        <input type="file" class="form-control" id="productImage" name="itemImage" accept="image/*">
                     </div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-custom">Add Product</button>
                 </div>
+
+                <button type="button" class="btn btn-secondary ms-2"
+                        onclick="window.location.href='http://localhost:8080/e_commerce_application_jsp_war_exploded/loadCategories'">
+                    Reload
+                </button>
             </form>
+
         </div>
     </div>
 </div>
@@ -155,47 +214,109 @@
                 <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="edit-product.jsp" method="POST">
+
+            <form action="product-update" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
-                    <%-- Fields for editing the product (similar to Add Product Modal) --%>
-                    <input type="hidden" id="editProductId" name="id"> <!-- Hidden input for Product ID -->
                     <div class="mb-3">
-                        <label for="editProductName" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="editProductName" name="name" required>
+                        <label for="productNameU" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="productNameU" name="itemName" required>
                     </div>
                     <div class="mb-3">
-                        <label for="editProductDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="editProductDescription" name="description" rows="3" required></textarea>
+                        <label for="productDescriptionU" class="form-label">Description</label>
+                        <textarea class="form-control" id="productDescriptionU" name="itemDescription" rows="3" required></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="editProductPrice" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="editProductPrice" name="price" step="0.01" required>
+                        <label for="productPriceU" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="productPriceU" name="unitPrice" step="0.01" required>
                     </div>
+
                     <div class="mb-3">
-                        <label for="editProductCategory" class="form-label">Category</label>
-                        <select class="form-select" id="editProductCategory" name="category_id" required>
-                            <%-- Dynamically populate this dropdown with categories --%>
-                            <option value="1">Incense</option>
-                            <option value="2">Essential Oils</option>
+                        <label for="productCategoryU" class="form-label">Category</label>
+                        <select class="form-select" id="productCategoryU" name="categoryID" required>
+                            <%
+                                List<CategoryDTO> categoriess = (List<CategoryDTO>) request.getAttribute("categories");
+                                if (categories != null && !categories.isEmpty()) {
+                                    for (CategoryDTO category : categoriess) {
+                            %>
+                            <option value="<%= category.getId() %>"><%= category.getCategory() %></option>
+
+
+                            <%
+                                }
+                            } else {
+                            %>
+                            <option value="">No categories available</option>
+                            <%
+                                }
+                            %>
                         </select>
                     </div>
+
+
+
                     <div class="mb-3">
-                        <label for="editProductStock" class="form-label">Stock</label>
-                        <input type="number" class="form-control" id="editProductStock" name="stock" required>
+                        <label for="productStockU" class="form-label">Quantity</label>
+                        <input type="number" class="form-control" id="productStockU" name="quantity" required>
                     </div>
                     <div class="mb-3">
-                        <label for="editProductImage" class="form-label">Image URL</label>
-                        <input type="text" class="form-control" id="editProductImage" name="image_url">
+                        <label for="materialU" class="form-label">Material</label>
+                        <input type="number" class="form-control" id="materialU" name="material" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="productImageU" class="form-label">Image</label>
+                        <input type="file" class="form-control" id="productImageU" name="itemImage" accept="image/*">
                     </div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-custom">Update Product</button>
+                    <button type="submit" class="btn btn-custom">update Product</button>
                 </div>
+
+                <button type="button" class="btn btn-secondary ms-2"
+                        onclick="window.location.href='http://localhost:8080/e_commerce_application_jsp_war_exploded/loadCategories'">
+                    Reload
+                </button>
             </form>
         </div>
     </div>
 </div>
+
+
+<script>
+    // Add event listener to capture the button click and populate modal fields
+    const editProductModal = document.getElementById('editProductModal');
+    editProductModal.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget; // The button that triggered the modal
+
+        // Get data attributes from the button
+        const itemID = button.getAttribute('data-item-id');
+        const itemName = button.getAttribute('data-item-name');
+        const itemDescription = button.getAttribute('data-item-description');
+        const itemPrice = button.getAttribute('data-item-price');
+        const itemCategory = button.getAttribute('data-item-category');
+        const itemQuantity = button.getAttribute('data-item-quantity');
+        const itemMaterial = button.getAttribute('data-item-material');
+        const itemImage = button.getAttribute('data-item-image');
+
+        // Populate the form fields with the data from the button
+        document.getElementById('productNameU').value = itemName;
+        document.getElementById('productDescriptionU').value = itemDescription;
+        document.getElementById('productPriceU').value = itemPrice;
+        document.getElementById('productCategoryU').value = itemCategory;
+        document.getElementById('productStockU').value = itemQuantity;
+        document.getElementById('materialU').value = itemMaterial;
+
+        // Display current image if available
+        if (itemImage) {
+            document.getElementById('currentProductImage').src = "uploads/" + itemImage;
+            document.getElementById('currentProductImage').style.display = "block";
+        } else {
+            document.getElementById('currentProductImage').style.display = "none";
+        }
+    });
+</script>
 
 </body>
 </html>

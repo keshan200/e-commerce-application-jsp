@@ -77,13 +77,13 @@
       <a href="#" class="nav-link panel-btn" data-url="dashboardCustomer.jsp">Dashboard</a>
     </li>
     <li class="nav-item">
-      <a href="customer-getAll" class="nav-link panel-btn" data-url="manage-users.jsp">View Customer Details</a>
+      <a href="manage-users.jsp" class="nav-link panel-btn" data-url="manage-users.jsp">View Customer Details</a>
     </li>
     <li class="nav-item">
-      <a href="category-list" class="nav-link panel-btn" data-url="manage-categories.jsp">Category Manage</a>
+      <a href="manage-categories.jsp" class="nav-link panel-btn" data-url="manage-categories.jsp">Category Manage</a>
     </li>
     <li class="nav-item">
-      <a href="#" class="nav-link panel-btn" data-url="manage-products.jsp">Products Manage</a>
+      <a href="manage-products.jsp" class="nav-link panel-btn" data-url="manage-products.jsp">Products Manage</a>
     </li>
     <li class="nav-item">
       <a href="#" class="nav-link panel-btn" data-url="shop.jsp">Shop</a>
@@ -150,6 +150,9 @@
     });
   });
 </script>--%>
+
+
+
 
 </body>
 </html>

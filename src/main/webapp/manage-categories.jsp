@@ -94,47 +94,103 @@
         </div>
 
 
+       <%-- <div class="card p-4">
+            <h2 class="mb-3">Existing Categories</h2>
 
-    <div class="card p-4">
-        <h2 class="mb-3">Existing Categories</h2>
-
-        <%
-            List<CategoryDTO> datalist = (List<CategoryDTO>) request.getAttribute("categoryList");
-            if (datalist != null && !datalist.isEmpty()) {
-        %>
-
-
-        <table class="table table-striped table-hover">
-            <thead>
-            <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
             <%
-                for (CategoryDTO categoryDTO : datalist) {
+                // Retrieve the category list from the request attribute
+                List<CategoryDTO> datalist = (List<CategoryDTO>) request.getAttribute("categoryList");
+                if (datalist != null && !datalist.isEmpty()) {
             %>
-            <tr>
-                <td><img src="<%=categoryDTO.getCategoryImage()%>" width="20px" height="30px"></td>
-                <td><%=categoryDTO.getCategory()%></td>
-                <td>
-                    <a href="edit-category.jsp?id=1" class="btn btn-sm btn-warning">Edit</a>
-                    <a href="delete-category.jsp?id=1" class="btn btn-sm btn-danger">Delete</a>
-                </td>
-            </tr>
+
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                    for (CategoryDTO categoryDTO : datalist) {
+                %>
+                <tr>
+                    <td><img src="<%= categoryDTO.getCategoryImage() %>" width="20px" height="30px"></td>
+                    <td><%= categoryDTO.getCategory() %></td>
+                    <td>
+                        <!-- Use categoryID for dynamic URLs in the action buttons -->
+                        <a href="edit-category.jsp?id=<%= categoryDTO.getCategory() %>" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="delete-category.jsp?id=<%= categoryDTO.getCategory() %>" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+                <%
+                    }
+                %>
+                </tbody>
+            </table>
+            <%
+            } else {
+            %>
+            <p>No categories available.</p>
             <%
                 }
             %>
-            </tbody>
-        </table>
-        <%
-        }
-        %>
+
+        </div>--%>
+
+
+        <a href="category-list">relod</a>
+
+
+        <div class="card p-4">
+            <h2 class="mb-3">Existing Categories</h2>
+
+            <%
+                // Retrieve the category list from the request attribute
+                List<CategoryDTO> categoryList = (List<CategoryDTO>) request.getAttribute("CategoryList");
+                if (categoryList != null && !categoryList.isEmpty()) {
+            %>
+
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                    // Loop through the category list and display each category's details
+                    for (CategoryDTO categoryDTO : categoryList) {
+                %>
+                <tr>
+                    <td><img src="uploads/<%= categoryDTO.getCategoryImage() %>" width="20px" height="30px"></td>
+                    <td><%= categoryDTO.getCategory() %></td>
+                    <td>
+                        <!-- Use category for dynamic URLs in the action buttons -->
+                        <a href="edit-category.jsp?id=<%= categoryDTO.getCategory() %>" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="delete-category.jsp?id=<%= categoryDTO.getCategory() %>" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+                <%
+                    }
+                %>
+                </tbody>
+            </table>
+
+            <%
+            } else {
+            %>
+            <p>No categories available.</p>
+            <%
+                }
+            %>
+        </div>
+
 
     </div>
-</div>
 </div>
 
 </body>

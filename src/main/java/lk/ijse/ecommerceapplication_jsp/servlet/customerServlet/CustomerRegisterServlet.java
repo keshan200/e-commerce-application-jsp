@@ -15,7 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 
-@WebServlet("/customer-register")
+@WebServlet(name = "CustomerRegisterServlet",value = "/customer-register")
 public class CustomerRegisterServlet extends HttpServlet {
 
 

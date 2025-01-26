@@ -1,3 +1,5 @@
+<%@ page import="lk.ijse.ecommerceapplication_jsp.DTO.ProductDTO" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -33,7 +35,44 @@
 
 <%--stye--%>
   <style>
+    .button-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-left: auto;
+    }
 
+    .btnH {
+      padding: 8px 20px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      z-index: 1; /* Ensure proper stacking */
+    }
+
+    .register-btn {
+      background-color: #4caf50; /* Green */
+    }
+
+    .register-btn:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+    }
+
+    .login-btn {
+      background-color: #2196f3; /* Blue */
+    }
+
+    .login-btn:hover {
+      background-color: #1e88e5;
+      transform: scale(1.05);
+    }
 
 
   </style>
@@ -119,9 +158,16 @@
       </ul>
     </nav>
 
-    <div class="header-image">
+    <div class="header-image" style="display: flex;gap: 60px">
       <img class="cart" src="assets/img/cart-black.png" alt="Cart">
+
+      <div class="button-group">
+        <a href="register.jsp" type="submit" class="btnH register-btn" style="z-index: 1">Register</a>
+        <a href="login.jsp" class="btnH login-btn" style="z-index: 1">Login</a>
+      </div>
     </div>
+
+
 
   </header>
 
@@ -230,22 +276,41 @@
     <p class="products-page-Title">OUR FEATURED ITEMS</p>
   </div>
 
+  <a href="load-list">load</a>
+
   <section class="product-grid">
 
     <div class="product-container">
+      <%
+        List<ProductDTO> products = (List<ProductDTO>) request.getAttribute("load-list");
+
+        if (products != null && !products.isEmpty()) {
+          System.out.println("product Is Not NUll");
+          for (ProductDTO product : products) {
+            System.out.println(product.getItemName()+" : index.jsp");
+
+
+      %>
 
       <div class="product-card">
-          <img class="product-img" src="assets/img/chair.jpg" alt="Product 1">
+          <img class="product-img" src="<%= request.getContextPath() %>/uploads/<%= product.getItemImage() %>" alt="Product 1">
 
             <div class="product-info">
-        <p class="product-name">Product Name 1</p>
-        <p class="product-price">$99.99</p>
-      </div>
+        <p class="product-name"><%=product.getItemName()%></p>
+        <p class="product-price">$<%=product.getUnitPrice()%></p>
+       </div>
             <button class="add-to-cart-btn">Add to Cart</button>
       </div>
+
+      <%
+          }
+        }else {
+          System.out.println("product Is NUll");
+        }
+      %>
     </div>
 
-    <div class="product-container">
+   <%-- <div class="product-container">
       <div class="product-card">
         <img class="product-img" src="assets/img/chair.jpg" alt="Product 1">
 
@@ -279,7 +344,7 @@
         </div>
         <button class="add-to-cart-btn">Add to Cart</button>
       </div>
-    </div>
+    </div>--%>
 
   </section>
 
