@@ -11,96 +11,161 @@
     <title>register</title>
 
     <style>
-      #reg-page{
-        width: 100vw;
-        height: 100vh;
+      /* General reset and styling */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f9f9f9;
         display: flex;
         justify-content: center;
         align-items: center;
+        min-height: 100vh;
+        margin: 20px;
       }
-
-      .reg-content{
-        width: 80vw;
-        display: flex;
-      }
-
 
       body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #f4f4f9;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+        font-family: 'Roboto', sans-serif;
+        background-color: #f9f9f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 20px;
+        position: relative; /* To position the overlay on top */
       }
+
+
+      /* Main container styles */
+      #reg-page {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+      }
+
+      .reg-content {
+        display: flex;
+        width: 100%;
+        max-width: 1000px;
+      }
+
+      /* Section with the form */
       .reg-form {
         background: #ffffff;
-        padding: 2rem;
+        padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        max-width: 500px;
-        width: 100%;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        flex: 1;
+        max-width: 600px;
+        margin: 0 auto;
       }
+
       .reg-form h2 {
         text-align: center;
         color: #333;
-        margin-bottom: 1.5rem;
+        font-size: 1.6rem;
+        margin-bottom: 1.2rem;
       }
+
+      /* Form group and input fields */
       .form-group {
-        margin-bottom: 1rem;
+        margin-bottom: 1.2rem;
       }
+
       .form-group label {
-        display: block;
-        font-weight: bold;
+        font-weight: 600;
         margin-bottom: 0.5rem;
+        color: #555;
       }
-      .form-group input, .form-group textarea, .form-group select {
+
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
         width: 100%;
-        padding: 0.75rem;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+        padding: 0.7rem;
+        border: none;
+        border-radius: 8px;
         font-size: 1rem;
+        background-color: #f2f2f2; /* Light grayish-white background for text fields */
+        transition: all 0.3s ease;
       }
+
+      .form-group input:focus,
+      .form-group textarea:focus,
+      .form-group select:focus {
+        border-color: #007BFF;
+        outline: none;
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+      }
+
       .form-group textarea {
         resize: none;
         height: 100px;
       }
+
       .form-group select {
-        background: #fff;
+        background-color: #f2f2f2; /* Light grayish-white for select as well */
       }
-      .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-        border-color: #007BFF;
-        outline: none;
-        box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
-      }
+
+      /* Submit button styling */
       .btn {
-        display: block;
         width: 100%;
         padding: 0.75rem;
         background-color: #007BFF;
-        color: #fff;
-        font-size: 1rem;
-        font-weight: bold;
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
         border: none;
-        border-radius: 5px;
+        border-radius: 8px;
         cursor: pointer;
         transition: background-color 0.3s;
       }
+
       .btn:hover {
         background-color: #0056b3;
       }
 
-      .reg-content{
-        width: 40vw;
-        height: 100vh;
-        background-image: url("../webapp/assets/img/home2.png");
+      /* Background section styling */
+      .ndsec {
+        flex: 1;
+        background-image: url("assets/img/home2.png");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
       }
 
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .reg-content {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .reg-form {
+          width: 100%;
+          max-width: 500px;
+          margin: 20px;
+        }
+
+        .ndsec {
+          display: none;
+        }
+      }
     </style>
+
+
+
+
+
 
   </head>
   <body>
@@ -109,43 +174,43 @@
 
      <section class="reg-content" >
 
-      <section>
+      <section class="ndsec">
 
 
       </section>
 
        <section class="reg-form">
          <h2>Create Account</h2>
-         <form action="register.jsp" method="post">
+         <form action="customer-register" method="post">
 
            <section style="display: flex;gap:30px">
            <div class="form-group">
-             <label for="firstName">First Name</label>
+
              <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
            </div>
            <div class="form-group">
-             <label for="lastName">Last Name</label>
+
              <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
            </div>
            </section>
            <div class="form-group">
-             <label for="email">Email</label>
+
              <input type="email" id="email" name="email" placeholder="Enter your email" required>
            </div>
            <div class="form-group">
-             <label for="password">Password</label>
+
              <input type="password" id="password" name="password" placeholder="Enter your password" required>
            </div>
            <div class="form-group">
-             <label for="address">Address</label>
+
              <textarea id="address" name="address" placeholder="Enter your address"></textarea>
            </div>
            <div class="form-group">
-             <label for="telephone">Telephone</label>
+
              <input type="tel" id="telephone" name="telephone" placeholder="Enter your telephone number">
            </div>
            <div class="form-group">
-             <label for="accountType">Account Type</label>
+
              <select id="accountType" name="accountType" required>
                <option value="">Select Account Type</option>
                <option value="admin">Admin</option>

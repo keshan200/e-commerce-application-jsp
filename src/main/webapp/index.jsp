@@ -43,7 +43,7 @@
     }
 
     .btnH {
-      padding: 8px 20px;
+      padding: 6px 20px;
       font-size: 14px;
       font-weight: bold;
       color: #fff;
@@ -57,7 +57,7 @@
     }
 
     .register-btn {
-      background-color: #4caf50; /* Green */
+      background-color: white; /* Green */
     }
 
     .register-btn:hover {
@@ -66,7 +66,7 @@
     }
 
     .login-btn {
-      background-color: #2196f3; /* Blue */
+      background-color:white; /* Blue */
     }
 
     .login-btn:hover {
@@ -152,14 +152,18 @@
     <nav id="main-nav" class="navbar">
 
       <ul class="nav-list">
-        <li class="nav-item"><a href="admin-dashboard.jsp" class="nav-link">Categories</a></li>
-        <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
-        <li class="nav-item"><a href="" class="nav-link">New Arrival</a></li>
+        <li class="nav-item" style="z-index: 1"><a href="admin-dashboard.jsp" class="nav-link">Categories</a></li>
+        <li class="nav-item" style="z-index: 1"><a href="" class="nav-link">About Us</a></li>
+        <li class="nav-item" style="z-index: 1"><a href="" class="nav-link">New Arrival</a></li>
       </ul>
     </nav>
 
+
+
+
+
     <div class="header-image" style="display: flex;gap: 60px">
-      <img class="cart" src="assets/img/cart-black.png" alt="Cart">
+      <img style="z-index: 1" class="cart" src="assets/img/cart-black.png" alt="Cart">
 
       <div class="button-group">
         <a href="register.jsp" type="submit" class="btnH register-btn" style="z-index: 1">Register</a>
@@ -167,6 +171,9 @@
       </div>
     </div>
 
+    <div>
+      <a href="login.jsp" style="color: white">Admin Login</a>
+    </div>
 
 
   </header>
@@ -276,21 +283,23 @@
     <p class="products-page-Title">OUR FEATURED ITEMS</p>
   </div>
 
-  <a href="load-list">load</a>
+
 
   <section class="product-grid">
 
+
+    <%
+      List<ProductDTO> products = (List<ProductDTO>) request.getAttribute("productList");
+
+      if (products != null && !products.isEmpty()) {
+        System.out.println("product Is Not NUll");
+        for (ProductDTO product : products) {
+          System.out.println(product.getItemName()+" : index.jsp");
+
+
+    %>
+
     <div class="product-container">
-      <%
-        List<ProductDTO> products = (List<ProductDTO>) request.getAttribute("load-list");
-
-        if (products != null && !products.isEmpty()) {
-          System.out.println("product Is Not NUll");
-          for (ProductDTO product : products) {
-            System.out.println(product.getItemName()+" : index.jsp");
-
-
-      %>
 
       <div class="product-card">
           <img class="product-img" src="<%= request.getContextPath() %>/uploads/<%= product.getItemImage() %>" alt="Product 1">
@@ -302,20 +311,21 @@
             <button class="add-to-cart-btn">Add to Cart</button>
       </div>
 
-      <%
-          }
-        }else {
-          System.out.println("product Is NUll");
+
+    </div>
+    <%
         }
-      %>
-    </div>
+      }else {
+        System.out.println("product Is NUll");
+      }
+    %>
 
-   <%-- <div class="product-container">
+    <div class="product-container">
       <div class="product-card">
         <img class="product-img" src="assets/img/chair.jpg" alt="Product 1">
 
         <div class="product-info">
-          <p class="product-name">Product Name 1</p>
+          <p class="product-name">Wood Chair</p>
           <p class="product-price">$99.99</p>
         </div>
         <button class="add-to-cart-btn">Add to Cart</button>
@@ -324,10 +334,10 @@
 
     <div class="product-container">
       <div class="product-card">
-        <img class="product-img" src="assets/img/chair.jpg" alt="Product 1">
+        <img class="product-img" src="assets/img/mirror.jpg" alt="Product 1">
 
         <div class="product-info">
-          <p class="product-name">Product Name 1</p>
+          <p class="product-name">Mirror</p>
           <p class="product-price">$99.99</p>
         </div>
         <button class="add-to-cart-btn">Add to Cart</button>
@@ -336,15 +346,27 @@
 
     <div class="product-container">
       <div class="product-card">
-        <img class="product-img" src="assets/img/chair.jpg" alt="Product 1">
+        <img class="product-img" src="assets/img/recliner.jpeg" alt="Product 1">
 
         <div class="product-info">
-          <p class="product-name">Product Name 1</p>
+          <p class="product-name">recliner</p>
           <p class="product-price">$99.99</p>
         </div>
         <button class="add-to-cart-btn">Add to Cart</button>
       </div>
-    </div>--%>
+    </div>
+
+    <div class="product-container">
+      <div class="product-card">
+        <img class="product-img" src="assets/img/recliner.jpeg" alt="Product 1">
+
+        <div class="product-info">
+          <p class="product-name">recliner</p>
+          <p class="product-price">$99.99</p>
+        </div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+    </div>
 
   </section>
 

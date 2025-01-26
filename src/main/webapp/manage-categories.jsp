@@ -82,7 +82,7 @@
                                         <input type="text" class="form-control" id="name" name="category" required/>
                                     </div>
 
-                                    <button type="submit" id="btnSave" class="btn btn-primary">Add</button>
+                                  <a href="product-save" data-url="product-save"><button type="submit" id="btnSave" class="btn btn-primary">Add</button></a>
                                     <button type="button" id="btnClear" class="btn btn-danger">Clear</button>
                                 </form>
 

@@ -14,7 +14,7 @@
       font-family: Arial, sans-serif;
     }
     .sidebar {
-      background-color: #2c3e50;
+      background-color: black;
       color: white;
       height: 100vh;
       padding-top: 30px;
@@ -28,7 +28,7 @@
       display: block;
     }
     .sidebar a:hover {
-      background-color: #34495e;
+      background-color: black;
       border-radius: 5px;
     }
     .main-content {
@@ -55,12 +55,12 @@
       margin-bottom: 30px;
     }
     .btn-custom {
-      background-color: #2c3e50;
+      background-color: black;
       color: white;
       border: none;
     }
     .btn-custom:hover {
-      background-color: #34495e;
+      background-color: black;
     }
     .card-text {
       flex-grow: 1; /* Ensures the text doesn't squash the buttons */
@@ -71,19 +71,22 @@
 
 <!-- Sidebar -->
 <div class="sidebar">
-  <h3 class="text-center text-white">Customer Dashboard</h3>
+  <h3 class="text-center text-white" style="margin-bottom: 50px">DecoraLUX Admin System</h3>
   <ul class="nav flex-column">
     <li class="nav-item">
       <a href="#" class="nav-link panel-btn" data-url="dashboardCustomer.jsp">Dashboard</a>
     </li>
+
     <li class="nav-item">
-      <a href="manage-users.jsp" class="nav-link panel-btn" data-url="manage-users.jsp">View Customer Details</a>
+      <a href="customer-getAll" class="nav-link panel-btn" data-url="customer-getAll">View Customer Details</a>
+    </li>
+
+
+    <li class="nav-item">
+      <a href="category-list" class="nav-link panel-btn" data-url="category-list">Category Manage</a>
     </li>
     <li class="nav-item">
-      <a href="manage-categories.jsp" class="nav-link panel-btn" data-url="manage-categories.jsp">Category Manage</a>
-    </li>
-    <li class="nav-item">
-      <a href="manage-products.jsp" class="nav-link panel-btn" data-url="manage-products.jsp">Products Manage</a>
+      <a href="manageProductsAndCategories" class="nav-link panel-btn" data-url="manageProductsAndCategories">Products Manage</a>
     </li>
     <li class="nav-item">
       <a href="#" class="nav-link panel-btn" data-url="shop.jsp">Shop</a>
@@ -94,47 +97,26 @@
   </ul>
 </div>
 
+<a href="manageProduct?section=dashboardManagement" id="dashboard_nav">Dashboard</a>
+<a href="manageProduct?section=productMange" id="product_nav">Product Management</a>
+
+
+
+
+
 <!-- Main Content -->
 <div class="main-content" id="main-content">
   <!-- Dashboard Header -->
   <div class="dashboard-header mb-4">
-    <h1>Welcome Back, [Customer Name]!</h1>
+    <h1>Welcome Back,ADMIN</h1>
     <p>We're so happy to have you back. Explore your orders, update your profile, and keep track of your favorite incense products.</p>
   </div>
 
   <!-- Order History Section -->
-  <div class="section-header">
-    <h2>Your Order History</h2>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card p-3">
-          <h4>Order #2451</h4>
-          <p>Status: Shipped</p>
-          <p>Date: January 10, 2025</p>
-          <a href="order-details.jsp?orderId=2451" class="btn btn-custom w-100">View Details</a>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card p-3">
-          <h4>Order #2450</h4>
-          <p>Status: Completed</p>
-          <p>Date: January 5, 2025</p>
-          <a href="order-details.jsp?orderId=2450" class="btn btn-custom w-100">View Details</a>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card p-3">
-          <h4>Order #2449</h4>
-          <p>Status: Pending</p>
-          <p>Date: December 28, 2024</p>
-          <a href="order-details.jsp?orderId=2449" class="btn btn-custom w-100">View Details</a>
-        </div>
-      </div>
-    </div>
-  </div>
+
 </div>
 
-<%--<script>
+<script>
   $(document).ready(function () {
     $('.panel-btn').on('click', function (e) {
       e.preventDefault();
@@ -149,7 +131,7 @@
       }
     });
   });
-</script>--%>
+</script>
 
 
 

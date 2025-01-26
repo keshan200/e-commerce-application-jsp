@@ -40,7 +40,7 @@ public class CustomerRegisterServlet extends HttpServlet {
             boolean isRowAffected = pstm.executeUpdate() > 0;
 
             if (isRowAffected) {
-                resp.sendRedirect("customer-register.jsp?message=success");
+                resp.sendRedirect("index.jsp");
             }else {
                 resp.sendRedirect("customer-register.jsp?error=Failed to added Customer");
             }

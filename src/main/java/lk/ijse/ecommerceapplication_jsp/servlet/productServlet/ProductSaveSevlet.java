@@ -81,7 +81,7 @@ public class ProductSaveSevlet extends HttpServlet {
 
 
             if (b) {
-                resp.sendRedirect("manage-products.jsp?message=success");
+                resp.sendRedirect("load-list");
             }else {
                 resp.sendRedirect("manage-products.jsp?error=Failed to added product");
             }

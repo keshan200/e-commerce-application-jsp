@@ -74,6 +74,8 @@ public class ProductListServlet extends HttpServlet {
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+            System.out.println("call");
+
             List<ProductDTO> productList = new ArrayList<>();
 
             // Get the data source from the servlet context
@@ -103,9 +105,14 @@ public class ProductListServlet extends HttpServlet {
                 // Set the product list as a request attribute
                 req.setAttribute("productList", productList); // Make sure this name matches the JSP
 
+                System.out.println("pd"+productList);
                 // Forward to JSP page
-                RequestDispatcher rd = req.getRequestDispatcher("manage-products.jsp");
+                RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
+                RequestDispatcher rd2 = req.getRequestDispatcher("manage-products.jsp");
                 rd.forward(req, resp);
+                rd2.forward(req, resp);
+
+                resp.getWriter().write("Servlet is working");
 
             } catch (SQLException e) {
                 e.printStackTrace();

@@ -33,7 +33,9 @@ public class CategorySaveServlet extends HttpServlet {
 
 
         String category = req.getParameter("category");
+
         Part filePart = req.getPart("categoryImage");
+
         // Get the uploaded file
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // Get file name
 
@@ -41,6 +43,7 @@ public class CategorySaveServlet extends HttpServlet {
             resp.getWriter().write("Product image is required.");
             return;
         }
+
 
         // Define upload directory
         String uploadPath = getServletContext().getRealPath("") + File.separator + "uploads";
@@ -69,7 +72,8 @@ public class CategorySaveServlet extends HttpServlet {
 
 
             if (b) {
-                resp.sendRedirect("manage-categories.jsp?message=success");
+                resp.sendRedirect("category-list");
+               /* resp.sendRedirect("manage-categories.jsp?message=success");*/
             }else {
                 resp.sendRedirect("manage-categories.jsp?error=Failed to added Customer");
             }

@@ -160,7 +160,7 @@
                         <label for="productCategory" class="form-label">Category</label>
                         <select class="form-select" id="productCategory" name="categoryID" required>
                             <%
-                                List<CategoryDTO> categories = (List<CategoryDTO>) request.getAttribute("categories");
+                                List<CategoryDTO> categories = (List<CategoryDTO>) request.getAttribute("CategoryLst");
                                 if (categories != null && !categories.isEmpty()) {
                                     for (CategoryDTO category : categories) {
                             %>
@@ -169,7 +169,7 @@
                                 }
                             } else {
                             %>
-                            <option value="">No categories available</option>
+
                             <%
                                 }
                             %>
@@ -182,7 +182,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="material" class="form-label">Material</label>
-                        <input type="number" class="form-control" id="material" name="material" required>
+                        <input type="text" class="form-control" id="material" name="material" required>
                     </div>
 
                     <div class="mb-3">
@@ -193,13 +193,15 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-custom">Add Product</button>
+                   <a href="manageProductsAndCategories" data-url="manageProductsAndCategories"><button type="submit" class="btn btn-custom">Add Product</button></a>
                 </div>
 
-                <button type="button" class="btn btn-secondary ms-2"
+
+
+                <%--<button type="button" class="btn btn-secondary ms-2"
                         onclick="window.location.href='http://localhost:8080/e_commerce_application_jsp_war_exploded/loadCategories'">
                     Reload
-                </button>
+                </button>--%>
             </form>
 
         </div>
@@ -234,7 +236,7 @@
                         <label for="productCategoryU" class="form-label">Category</label>
                         <select class="form-select" id="productCategoryU" name="categoryID" required>
                             <%
-                                List<CategoryDTO> categoriess = (List<CategoryDTO>) request.getAttribute("categories");
+                                List<CategoryDTO> categoriess = (List<CategoryDTO>) request.getAttribute("CategoryLst");
                                 if (categories != null && !categories.isEmpty()) {
                                     for (CategoryDTO category : categoriess) {
                             %>
@@ -274,10 +276,12 @@
                     <button type="submit" class="btn btn-custom">update Product</button>
                 </div>
 
-                <button type="button" class="btn btn-secondary ms-2"
+                <a href="loadCategories">reload</a>
+
+               <%-- <button type="button" class="btn btn-secondary ms-2"
                         onclick="window.location.href='http://localhost:8080/e_commerce_application_jsp_war_exploded/loadCategories'">
                     Reload
-                </button>
+                </button>--%>
             </form>
         </div>
     </div>
